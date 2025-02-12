@@ -20,9 +20,11 @@ class MainActivity : AppCompatActivity() {
         // Show initial data
         textView.text = getTestDataArray().joinToString("\n")
 
+        updateDisplay(textView)
+
         //Update data when button is clicked
         button.setOnClickListener {
-            textView.text = getTestDataArray().joinToString("\n")
+            updateDisplay(textView)
         }
 
         // Example test call (Logs output to Logcat)
@@ -41,6 +43,16 @@ class MainActivity : AppCompatActivity() {
         else
             sortedList[size / 2]
         avg < median
+    }
+    private fun updateDisplay(textView: TextView) {
+        val numbersList = getTestDataArray().map { it.toDouble() } // Convert to Double for median function
+        textView.text = formatOutput(numbersList)
+    }
+
+    // Function to format output text
+    private fun formatOutput(numbersList: List<Double>): String {
+        return "Numbers:\n${numbersList.joinToString("\n")}\n\n" +
+                "Avg < Median: ${averageLessThanMedian(numbersList)}"
     }
 
     //Create a TextView for an item in a collection
